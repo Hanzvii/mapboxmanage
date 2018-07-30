@@ -1,0 +1,32 @@
+{
+  "name": "mapboxmanage",
+  "version": "0.0.1",
+  "description": "a mapbox manage tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "mapbox-gl": "^0.47.0",
+    "@mapbox/mapbox-gl-language": "^0.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hanzvii/mapboxmanage.git"
+  },
+  "keywords": [
+    "amap",
+    "map",
+    "mapbox",
+    "mapbox manage",
+    "mapbox operation",
+    "mapbox operate",
+    "mapbox handle"
+  ],
+  "author": "Hanzvii",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hanzvii/mapboxmanage/issues"
+  },
+  "homepage": "https://github.com/Hanzvii/mapboxmanage#readme"
+}
