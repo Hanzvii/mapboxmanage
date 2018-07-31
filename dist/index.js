@@ -22,25 +22,58 @@ const Map = {
     if (!!!markerId) {
       throw "addMarker 函数参数错误"
     }
-    const el = document.createElement('div')
-    el.style.backgroundImage = 'url(static/fly.png)'
-    el.style.backgroundRepeat = 'round'
-    el.style.width = '40px'
-    el.style.height = '40px'
-    this.marker[markerId] = new mapboxgl.Marker({
-      element: el,
-      // draggable: true
-    }).setLngLat(position).addTo(this.map);
+    // const el = document.createElement('div')
+    // el.style.backgroundImage = 'url(static/fly.png)'
+    // el.style.backgroundRepeat = 'round'
+    // el.style.width = '40px'
+    // el.style.height = '40px'
+    // this.marker[markerId] = new mapboxgl.Marker({
+    //   element: el,
+    //   // draggable: true
+    // }).setLngLat(position).addTo(this.map);
+    let _this = this;
+    this.map.loadImage(img, function(error, image) {
+      if (error) throw error;
+      if(!_this.map.hasImage('cat')){
+        _this.map.addImage('cat', image);
+      }
+      let point = {
+        "type": "Point",
+        "coordinates": position
+      };
+      // console.log(_this.map.getSource("drone"))
+      if(_this.map.getSource(markerId) == undefined){
+        _this.map.addSource(markerId, { type: 'geojson', data: point });
+      }
+      _this.map.addLayer({
+          "id": markerId,
+          "type": "symbol",
+          "source": markerId,
+          "layout": {
+              "icon-image": "cat",
+              "icon-rotation-alignment": "auto",
+              "icon-size": 1.2,
+              "icon-allow-overlap": true,
+              "icon-ignore-placement": true
+          }
+      });
+    });
   },
   //设置marker位置
   setMarkerPosition(markerId, position) {
-    this.marker[markerId].setLngLat(position);
+    let point = {
+      "type": "Point",
+      "coordinates": position
+    };
+    // this.marker[markerId].setLngLat(position);
+    this.map.getSource(markerId).setData(point);
   },
   setMarkerRotate(markerId, rotate) {
-    let obj = this.marker[markerId].getElement();
-    let transformStyle = obj.style.transform
-    let index = this.findStrIndex(obj.style.transform, ')', 1)
-    obj.style.transform = transformStyle.slice(0, index + 1) + ' rotate(' + rotate + 'deg)'
+    // let obj = this.marker[markerId].getElement();
+    // let transformStyle = obj.style.transform
+    // let index = this.findStrIndex(obj.style.transform, ')', 1)
+    // obj.style.transform = transformStyle.slice(0, index + 1) + ' rotate(' + rotate + 'deg)'
+    this.map.setLayoutProperty(markerId, 'icon-rotate', rotate);
   },
   getElementStyle(obj, sName) {
     return (obj.currentStyle || getComputedStyle(obj, false))[sName];
