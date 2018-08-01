@@ -1,14 +1,20 @@
 import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = "pk.eyJ1IjoiaGFuenZpaSIsImEiOiJjamk5a3Y5amcweHJ2M2tyeGRlaW5kN2xjIn0.NquD2pG7lThD-w5Hxqoh7A";
 let MapboxLanguage = require('@mapbox/mapbox-gl-language');
+// var img = require("./fly.png");
 const Map = {
   map: null,
   marker: {},
   polyline: {},
+  init: null,
   //初始化地图
   initMap(obj) {
+    this.init = {
+      container: obj.container, 
+      markerImg: obj.markerImg,//marker图片
+    }
     this.map = new mapboxgl.Map({
-      container: obj,
+      container: obj.container,
       style: 'mapbox://styles/mapbox/basic-v9',
       dragRotate: false
     });
@@ -32,7 +38,7 @@ const Map = {
     //   // draggable: true
     // }).setLngLat(position).addTo(this.map);
     let _this = this;
-    this.map.loadImage(img, function(error, image) {
+    this.map.loadImage(_this.init.markerImg, function(error, image) {
       if (error) throw error;
       if(!_this.map.hasImage('cat')){
         _this.map.addImage('cat', image);
