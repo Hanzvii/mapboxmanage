@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "mapbox-gl": "^0.47.0",
-    "@mapbox/mapbox-gl-language": "^0.10.0"
+    "@mapbox/mapbox-gl-language": "^0.10.0",
+    "mapbox-gl": "^0.47.0"
   },
   "repository": {
     "type": "git",
